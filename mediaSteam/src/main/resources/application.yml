@@ -7,6 +7,8 @@ spring:
 
   session:
     store-type: jdbc
+    jdbc:
+      initialize-schema: always
 
   jpa:
     hibernate:
