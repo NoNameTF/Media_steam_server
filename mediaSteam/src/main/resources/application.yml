@@ -1,0 +1,39 @@
+server:
+  port: 8081
+
+
+
+spring:
+
+  session:
+    store-type: jdbc
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_ms
+    username: app_ms
+    password: 1234
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: 51f2d2ac054e0496a65943501c480612
+            client-secret: S84XsL7SqyY51y4S2X8KX8gfsaSoHDJt
+#            redirect-uri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
+            redirect-uri: "http://localhost:8081/login/oauth2/code/kakao"
+            client-authentication-method: POST
+            authorization-grant-type: authorization_code
+            scope: profile_nickname, profile_image, account_email
+            client-name: Kakao
+        provider:
+          kakao:
+            authorization_uri: https://kauth.kakao.com/oauth/authorize
+            token_uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user_name_attribute: id
