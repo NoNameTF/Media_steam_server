@@ -1,4 +1,4 @@
-package com.noname.mediasteam.config.security;
+package com.noname.mediasteam.config.security.oauth2;
 
 import com.noname.mediasteam.domain.user.Role;
 import com.noname.mediasteam.domain.user.User;

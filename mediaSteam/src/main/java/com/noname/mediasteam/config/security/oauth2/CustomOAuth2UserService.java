@@ -1,5 +1,6 @@
-package com.noname.mediasteam.config.security;
+package com.noname.mediasteam.config.security.oauth2;
 
+import com.noname.mediasteam.config.security.SessionUser;
 import com.noname.mediasteam.domain.user.User;
 import com.noname.mediasteam.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
