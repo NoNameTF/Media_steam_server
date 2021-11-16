@@ -11,6 +11,7 @@ import java.util.Map;
 @Getter
 @Slf4j
 public class OAuthAttributes {
+    private String registrationId;
     private Map<String, Object> attributes;
     private String nameAttributeKey;
     private String name;
@@ -18,7 +19,8 @@ public class OAuthAttributes {
     private String picture;
 
     @Builder
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture) {
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture, String registrationId) {
+        this.registrationId = registrationId;
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.name = name;
@@ -43,6 +45,7 @@ public class OAuthAttributes {
         Map<String, Object> kakaoProfile = (Map<String, Object>) kakaoAccount.get("profile");
 
         return OAuthAttributes.builder()
+                .registrationId("kakao")
                 .name((String) kakaoProfile.get("nickname"))
                 .email((String) kakaoAccount.get("email"))
                 .picture((String) kakaoProfile.get("profile_image_url"))
@@ -54,6 +57,7 @@ public class OAuthAttributes {
 
     public static OAuthAttributes ofGoogle(String userNameAttributesName, Map<String, Object> attributes) {
         return OAuthAttributes.builder()
+                .registrationId("google")
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
                 .picture((String) attributes.get("picture"))
@@ -64,6 +68,7 @@ public class OAuthAttributes {
 
     public User toEntity() {
         return User.builder()
+                .provider(registrationId)
                 .name(name)
                 .email(email)
                 .picture(picture)

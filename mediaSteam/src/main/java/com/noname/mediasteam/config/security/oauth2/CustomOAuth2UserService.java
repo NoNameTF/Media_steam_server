@@ -1,21 +1,18 @@
 package com.noname.mediasteam.config.security.oauth2;
 
-import com.noname.mediasteam.config.security.SessionUser;
+import com.noname.mediasteam.config.security.UserPrincipal;
 import com.noname.mediasteam.domain.user.User;
-import com.noname.mediasteam.domain.user.UserRepository;
+import com.noname.mediasteam.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.Collections;
 
 @RequiredArgsConstructor
 @Service
@@ -34,18 +31,11 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
 
-        log.debug("{} {}", registrationId, userNameAttributeName);
-
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
         User user = saveOrUpdate(attributes);
 
-        httpSession.setAttribute("user", new SessionUser(user));
-
-        return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
-                attributes.getAttributes(),
-                attributes.getNameAttributeKey());
+        return UserPrincipal.create(user, attributes.getAttributes());
     }
 
     private User saveOrUpdate(OAuthAttributes attributes) {
