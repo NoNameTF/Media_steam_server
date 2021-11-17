@@ -11,7 +11,7 @@ public class UserResponseDto implements Serializable {
 
     private String provider;
 
-    private  String name;
+    private String name;
 
     private String nickname;
 
