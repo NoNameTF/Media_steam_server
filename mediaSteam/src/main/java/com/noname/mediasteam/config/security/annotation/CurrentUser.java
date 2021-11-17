@@ -1,4 +1,4 @@
-package com.noname.mediasteam.config.security;
+package com.noname.mediasteam.config.security.annotation;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 

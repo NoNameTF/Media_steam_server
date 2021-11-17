@@ -1,6 +1,6 @@
 package com.noname.mediasteam.controller;
 
-import com.noname.mediasteam.config.security.CurrentUser;
+import com.noname.mediasteam.config.security.annotation.CurrentUser;
 import com.noname.mediasteam.config.security.UserPrincipal;
 import com.noname.mediasteam.domain.user.dto.response.UserResponseDto;
 import com.noname.mediasteam.domain.user.service.UserService;
