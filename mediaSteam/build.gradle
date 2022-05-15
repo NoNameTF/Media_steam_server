@@ -75,3 +75,7 @@ tasks.withType(JavaCompile) {
 clean.doLast {
     file(generated).deleteDir()
 }
+
+bootJar {
+	mainClass = 'com.noname.mediasteam.MediaSteamApplication'
+}
