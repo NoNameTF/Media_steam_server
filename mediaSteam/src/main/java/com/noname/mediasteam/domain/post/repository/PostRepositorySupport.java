@@ -6,6 +6,7 @@ import com.noname.mediasteam.domain.post.dto.response.PostListResponseDto;
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
@@ -16,6 +17,7 @@ import static com.noname.mediasteam.domain.post.QPost.post;
 import static com.noname.mediasteam.domain.post.QPostComment.postComment;
 import static com.noname.mediasteam.domain.user.QUser.user;
 
+@Slf4j
 @RequiredArgsConstructor
 @Repository
 public class PostRepositorySupport {
@@ -25,13 +27,15 @@ public class PostRepositorySupport {
     public Post getPost(Long id) {
         return queryFactory.selectFrom(post)
                 .innerJoin(post.createdUser, user)
+                .leftJoin(post.comments, postComment)
                 .where(post.id.eq(id))
                 .fetchOne();
     }
 
     public PostListResponseDto getPosts(Long offset, Long limit) {
         QueryResults<Post> postQueryResults = queryFactory.selectFrom(post)
-                .innerJoin(post.comments, postComment)
+                .innerJoin(post.createdUser, user)
+                .leftJoin(post.comments, postComment)
                 .orderBy(post.id.desc())
                 .offset(offset)
                 .limit(limit)

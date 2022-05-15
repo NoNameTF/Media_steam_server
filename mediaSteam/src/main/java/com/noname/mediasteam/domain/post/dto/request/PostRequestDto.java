@@ -11,7 +11,7 @@ public class PostRequestDto implements Serializable {
 
     private String title;
 
-    private Long categoryId;
+    private String categoryId;
 
     private String content;
 

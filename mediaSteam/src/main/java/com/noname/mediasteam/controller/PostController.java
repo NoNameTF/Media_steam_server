@@ -18,15 +18,15 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/post")
+@RequestMapping("/v1/post")
 public class PostController {
 
     private final PostService postService;
 
     @GetMapping
     public PostListResponseDto getPosts(
-            Long offset,
-            Long limit
+            @RequestParam(defaultValue = "0") Long offset,
+            @RequestParam(defaultValue = "10") Long limit
     ) {
         return postService.getPosts(offset, limit);
     }

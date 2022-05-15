@@ -5,15 +5,13 @@ import com.noname.mediasteam.domain.post.Post;
 import com.noname.mediasteam.domain.user.User;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
-@Builder
+@NoArgsConstructor
 public class PostDetailResponseDto implements Serializable {
 
     private static final long serialVersionUID = -5916512812059712262L;
@@ -28,16 +26,26 @@ public class PostDetailResponseDto implements Serializable {
 
     private LocalDateTime createdAt;
 
-    private User createdUser;
+    private PostUserResponseDto createdUser;
+
+    @Builder
+    public PostDetailResponseDto(Long id, String title, String category, String content, LocalDateTime createdAt, PostUserResponseDto createdUser) {
+        this.id = id;
+        this.title = title;
+        this.category = category;
+        this.content = content;
+        this.createdAt = createdAt;
+        this.createdUser = createdUser;
+    }
 
     public static PostDetailResponseDto of(Post post) {
         return PostDetailResponseDto.builder()
                 .id(post.getId())
                 .title(post.getTitle())
-                .category(post.getCategory().getName())
+                .category(post.getPostCategory() != null ? post.getPostCategory().getName() : null)
                 .content(post.getContent())
                 .createdAt(post.getCreatedAt())
-                .createdUser(post.getCreatedUser())
+                .createdUser(PostUserResponseDto.of(post.getCreatedUser()))
                 .build();
     }
 

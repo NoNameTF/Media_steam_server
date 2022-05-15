@@ -3,6 +3,7 @@ package com.noname.mediasteam.domain.post;
 import com.noname.mediasteam.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
+@ToString
 public class PostComment {
 
     @Id
@@ -30,7 +32,7 @@ public class PostComment {
 
     @OneToOne
     @JoinColumn(name = "modifiedUserId")
-    private User ModifiedUser;
+    private User modifiedUser;
 
     private LocalDateTime createdAt;
 

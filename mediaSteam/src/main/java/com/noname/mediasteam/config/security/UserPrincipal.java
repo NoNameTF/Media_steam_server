@@ -3,6 +3,7 @@ package com.noname.mediasteam.config.security;
 import com.noname.mediasteam.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
+@ToString
 public class UserPrincipal implements UserDetails, OAuth2User {
 
     private Long id;

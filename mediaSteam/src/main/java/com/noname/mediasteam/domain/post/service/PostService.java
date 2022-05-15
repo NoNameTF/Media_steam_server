@@ -10,11 +10,13 @@ import com.noname.mediasteam.domain.post.repository.PostRepositorySupport;
 import com.noname.mediasteam.domain.user.User;
 import com.noname.mediasteam.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class PostService {
@@ -40,7 +42,8 @@ public class PostService {
     @Transactional
     public Long insertPost(PostRequestDto postRequestDto, UserPrincipal userPrincipal) {
         Post post = Post.create()
-                .category(null)
+                // TODO: category 작업 따로 할 예정
+                .postCategory(null)
                 .title(postRequestDto.getTitle())
                 .content(postRequestDto.getContent())
                 .user(findUserById(userPrincipal.getId()))
@@ -72,7 +75,7 @@ public class PostService {
     }
 
     private void validationWithUpdateForPost(Post post, UserPrincipal userPrincipal) {
-        if (post.confirmAuthor(userPrincipal))
+        if (!post.confirmAuthor(userPrincipal))
             throw new RuntimeException("작성자가 아닙니다.");
     }
 

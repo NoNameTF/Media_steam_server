@@ -5,6 +5,7 @@ import com.noname.mediasteam.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
+@ToString
 public class Post {
 
     @Id
@@ -21,7 +23,7 @@ public class Post {
 
     @OneToOne
     @JoinColumn(name = "categoryId")
-    private Category category;
+    private PostCategory postCategory;
 
     private String title;
 
@@ -47,8 +49,8 @@ public class Post {
     private List<PostComment> comments;
 
     @Builder(builderMethodName = "create")
-    public Post(Category category, String title, String content, User user) {
-        this.category = category;
+    public Post(PostCategory postCategory, String title, String content, User user) {
+        this.postCategory = postCategory;
         this.title = title;
         this.content = content;
         this.isRemoved = false;
