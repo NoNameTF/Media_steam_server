@@ -4,12 +4,14 @@ import com.noname.mediasteam.domain.user.dto.response.UserResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @NoArgsConstructor
+@ToString
 public class User {
 
     @Id
@@ -39,7 +41,8 @@ public class User {
     private Role role;
 
     @Builder
-    public User(String provider, String name, String email, String picture, Role role, String password) {
+    public User(Long id, String provider, String name, String email, String picture, Role role, String password) {
+        this.id = id;
         this.provider = provider;
         this.name = name;
         this.email = email;

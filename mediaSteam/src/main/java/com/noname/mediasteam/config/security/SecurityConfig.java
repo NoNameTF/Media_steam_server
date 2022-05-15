@@ -9,6 +9,7 @@ import com.noname.mediasteam.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -83,6 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js").permitAll()
                 .antMatchers("/auth/**", "/oauth2/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/post", "/v1/post/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login()

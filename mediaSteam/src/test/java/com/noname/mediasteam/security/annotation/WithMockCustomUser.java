@@ -12,7 +12,9 @@ import java.lang.annotation.Target;
 @WithSecurityContext(factory=WithMockCustomUserSecurityContextFactory.class)
 public @interface WithMockCustomUser {
 
-    String username() default "test";
+    String username() default "test@test";
+
+    String password() default "1234";
 
     String role() default "ROLE_ADMIN";
 

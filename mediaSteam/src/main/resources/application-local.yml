@@ -5,7 +5,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/db_ms
+    url: jdbc:mysql://localhost:3306/db_ms?characterEncoding=UTF-8
     username: app_ms
     password: 1234
 
