@@ -1,5 +1,11 @@
 use `db_ms`;
 
+/*
+    CREATE DATABASE `db_ms` DEFAULT CHARACTER SET utf8mb4;
+    CREATE USER `app_ms`@`%` IDENTIFIED BY '1234';
+    GRANT ALL privileges ON `app_ms`.* TO `app_ms`@`%`;
+ */
+
 drop table if exists `db_ms`.`user`;
 create table `db_ms`.`user` (
   `id`  bigint primary key auto_increment,
