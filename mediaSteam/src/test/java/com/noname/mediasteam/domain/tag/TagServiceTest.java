@@ -72,9 +72,6 @@ public class TagServiceTest {
 
     @Test
     public void 신규_태그_생성() {
-        Tag tag1 = Tag.builder().id(1L).name("퍄").build();
-
-
         verify(tagRepository, times(1)).save(any(Tag.class));
     }
 
